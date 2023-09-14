@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TitleBar from "./features/home/TitleBar";
 import SideBar from "./features/home/SideBar";
 import PageNotFound from "./features/PageNotFound";
-import QuizPage from "./features/quiz/QuizPage";
 import QuestionsPage from "./features/quiz/QuestionsPage";
 import { useSelector } from "react-redux";
 import QuestionsPageSol from "./features/quiz/QuestionsPageSol";
@@ -21,7 +20,6 @@ function App() {
 
         <Routes>
           <Route path="/" element={<HomeView />} />
-          <Route path="/quiz" element={<QuizPage />} />
           <Route path="/questions" element={<QuestionsPage />} />
           <Route path="/solution" element={<QuestionsPageSol />} />
           <Route path="/history" element={<HistoryPage />} />

@@ -1,4 +1,4 @@
-import Categories from "./Categories";
+import Categories from "../category/Categories";
 import { Link } from "react-router-dom";
 
 function SideBar() {

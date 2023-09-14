@@ -3,22 +3,29 @@ import { checkScore, fetchQuestions, storeQuestions } from "./questionsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { hideSideBar } from "../home/homeSlice";
 import Question from "./Question";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 import { newResult } from "../history/historySlice";
 
 function QuestionsPage() {
   const { showSideBar } = useSelector((state) => state.home);
   const { questions, loading } = useSelector((state) => state.questions);
-  const categories = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const cat = categories.find((cat) => cat.selectedId === true);
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const solutionsPage = (id) => {
+    navigate({
+      pathname: "/solution",
+      search: createSearchParams({
+        id: id,
+      }).toString(),
+    })
+  }
 
   useEffect(() => {
-    dispatch(fetchQuestions(cat.id));
+    dispatch(fetchQuestions(id));
     dispatch(hideSideBar());
-  }, [cat.id, dispatch]);
+  }, [dispatch,id]);
 
   const questionsList = questions.map((q, index) => {
     return <Question ques={q} index={index} key={index} />;
@@ -41,7 +48,7 @@ function QuestionsPage() {
               dispatch(checkScore());
               dispatch(storeQuestions());
               dispatch(newResult());
-              navigate("/solution");
+             solutionsPage(id);
             }}
           >
             Submit

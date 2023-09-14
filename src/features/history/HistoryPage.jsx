@@ -17,7 +17,6 @@ function HistoryPage() {
   ));
   return <div
   onClick={()=>{dispatch(hideSideBar())}}
-  className="page"
   style={showSideBar ? { opacity: "0.3" } : {}}>{showResults}</div>;
 }
 

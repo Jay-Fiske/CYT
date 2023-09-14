@@ -3,11 +3,14 @@ import { hideSideBar } from "../home/homeSlice";
 import QuestionSol from "./QuestionSol";
 import { useEffect } from "react";
 import { storeHistory } from "../history/historySlice";
+import { useSearchParams } from "react-router-dom";
 
 function QuestionsPageSol() {
   const { showSideBar } = useSelector((state) => state.home);
+  const [searchParams] = useSearchParams();
+  const id = parseInt(searchParams.get("id"));
   const categories = useSelector((state) => state.category);
-  const cat = categories.find((cat) => cat.selectedId === true);
+  const cat = categories.find((cat) => cat.id === id);
   const questions = JSON.parse(localStorage.getItem("questions"));
   const score = useSelector((state) => state.questions.score);
   const dispatch = useDispatch();

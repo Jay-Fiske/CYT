@@ -3,13 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideBar } from "./homeSlice";
-import { Link } from "react-router-dom";
-import { selectCategory } from "../category/categorySlice";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 
 function TitleBar() {
   const { showSideBar } = useSelector((state) => state.home);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const randomPage = () => {
+    navigate({
+      pathname: "/questions",
+      search: createSearchParams({
+        id: 0,
+      }).toString(),
+    })
+  }
   return (
     <div className="title-bar">
       {showSideBar ? (
@@ -29,7 +36,7 @@ function TitleBar() {
           }}
         />
       )}
-<div style={{width:"20px"}}></div>
+      <div style={{ width: "20px" }}></div>
       <h2>
         {" "}
         <Link to={"/"}> Check Your Trivia</Link>{" "}
@@ -38,10 +45,8 @@ function TitleBar() {
         <li>
           <Link to={"/"}>Home</Link>
         </li>
-        <li onClick={() => dispatch(selectCategory(0))}>
-          <Link to="/questions" reloadDocument>
+        <li onClick={() => randomPage()}>
             Random Quiz
-          </Link>
         </li>
         <li>
           <Link to={"/history"}>History</Link>
